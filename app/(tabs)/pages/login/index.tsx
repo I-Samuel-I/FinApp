@@ -1,4 +1,4 @@
-import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Button, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import style from "./style";
 import { useState } from "react";
 
@@ -12,6 +12,7 @@ export default function LoginScreen() {
   if (!login) {
     return(
         <>
+     
          <View style={style.main}>
         <View style={style.headerTitle}>
           <Text style={style.title}>FinApp</Text>
@@ -33,7 +34,7 @@ export default function LoginScreen() {
                 <TextInput placeholder="Confirme sua senha" secureTextEntry={true} />
             </View>
           </View>
-
+       
           <TouchableOpacity style={style.buttonLogin}>
             <Text style={style.buttonText}>Cadastrar</Text>
           </TouchableOpacity>
