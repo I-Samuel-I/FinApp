@@ -1,75 +1,170 @@
-import { Text, View } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  StatusBar,
+  Image,
+} from "react-native";
+import { styles } from "./style";
 import { Feather } from "@expo/vector-icons";
-import styles from "./style"
+export default function HomeScreen() {
+  const transactions = [
+    {
+      id: 1,
+      icon: "shopping-cart",
+      name: "Supermercado",
+      amount: -300.0,
+      color: "#FF6B6B",
+    },
+    { id: 2, icon: "wifi", name: "Internet", amount: -90.0, color: "#FF6B6B" },
+    { id: 3, icon: "heart", name: "Saúde", amount: -150.0, color: "#FF6B6B" },
+    {
+      id: 4,
+      icon: "dollar-sign",
+      name: "Salário",
+      amount: 4000.0,
+      color: "#4CAF50",
+    },
+  ];
 
+  const categories = [
+    { name: "Casa", color: "#1976D2" },
+    { name: "Alimentação", color: "#D32F2F" },
+    { name: "Educação", color: "#9C27B0" },
+    { name: "Lazer", color: "#FFA000" },
+    { name: "Serviços", color: "#795548" },
+  ];
 
-export default function Home() {
   return (
-    <>
-      <View>
-        {/* Header */}
-        <View style={styles.header}>
-          <Feather name="user" color="black" size={24} />
-          <Text style={styles.headerText}>Bom dia, Eduardo!</Text>
-          <Feather name="bell" color="black" size={24} />
-        </View>
-        {/* Container Principal */}
-        <View>
-          {/* Valores */}
-          <View>
-            {/* Saldo Total */}
-            <View>
-              <Text>Saldo Total</Text>
-              <Text> R$ 2.000,00</Text>
-            </View>
-            <View>
-              <Text>Receita</Text>
-              <Text>R$ 4.000,00</Text>
-            </View>
-            <View>
-              <Text>Despesas</Text>
-              <Text>R$ 2.000,00</Text>
-            </View>
+    <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
+
+      {/* Header */}
+      <View style={styles.header}>
+        <View style={styles.headerContent}>
+          <TouchableOpacity style={styles.avatarButton}>
+            <Text style={styles.avatarIcon}>👤</Text>
+          </TouchableOpacity>
+
+          <View style={styles.greetingContainer}>
+            <Text style={styles.greetingText}>Bom dia,</Text>
+            <Text style={styles.userName}>Eduardo!</Text>
           </View>
-          {/* LISTA GERAL */}
-          <View>
-            <Text> Últimas transações</Text>
-            {/* Lista unitária */}
-            <View>
-              <Feather name="shopping-cart" color="black" size={24} />
-              <Text> Supermercado</Text>
-              <Text> R$ 300,00</Text>
-            </View>
-            <View>
-              <Feather name="wifi" color="black" size={24} />
-              <Text> Internet</Text>
-              <Text> R$ 90,00</Text>
-            </View>
-            <View>
-              <Feather name="heart" color="black" size={24} />
-              <Text> Saúde</Text>
-              <Text> R$ 150,00</Text>
-            </View>
-            <View>
-              <Feather name="dollar-sign" color="black" size={24} />
-              <Text> Salário</Text>
-              <Text> R$ + 4.000,00</Text>
-            </View>
-          </View>
-        </View>
-        {/* Despesa */}
-        <View>
-          <Text> Despesas por Categoria</Text>
-          {/* Lista de Despesa */}
-          <View>
-            <Text> Casa</Text>
-            <Text>Alimentação</Text>
-            <Text>Educação</Text>
-            <Text>Lazer</Text>
-            <Text>Serviços</Text>
-          </View>
+
+          <TouchableOpacity style={styles.notificationButton}>
+            <Feather name="bell" size={30} color="#FFFF" />
+          </TouchableOpacity>
         </View>
       </View>
-    </>
+
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
+        {/* Balance Card */}
+        <View style={styles.balanceCard}>
+          <Text style={styles.balanceLabel}>Saldo Total</Text>
+          <Text style={styles.balanceAmount}>R$ 2.000,00</Text>
+
+          <View style={styles.summaryRow}>
+            <View style={styles.summaryItem}>
+              <Text style={styles.summaryLabel}>Receitas</Text>
+              <Text style={styles.incomeAmount}>R$ 4.000,00</Text>
+            </View>
+
+            <View style={styles.summaryDivider} />
+
+            <View style={styles.summaryItem}>
+              <Text style={styles.summaryLabel}>Despesas</Text>
+              <Text style={styles.expenseAmount}>R$ 2.000,00</Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Recent Transactions */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Últimas transações</Text>
+
+          <View style={styles.transactionsList}>
+            {transactions.map((transaction) => (
+              <View key={transaction.id} style={styles.transactionItem}>
+                <View style={styles.transactionLeft}>
+                  <View style={styles.transactionIcon}>
+                    <Feather
+                      name={transaction.icon}
+                      size={20}
+                      color={transaction.color}
+                    />
+                  </View>
+                  <Text style={styles.transactionName}>{transaction.name}</Text>
+                </View>
+                <Text
+                  style={[
+                    styles.transactionAmount,
+                    { color: transaction.color },
+                  ]}
+                >
+                  R$ {transaction.amount > 0 ? "+" : ""}
+                  {transaction.amount.toFixed(2).replace(".", ",")}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        {/* Expenses by Category */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Despesas por categoria</Text>
+
+          <View style={styles.chartContainer}>
+            <View>
+              <Image
+                source={require("../../../../assets/images/pizza.png")}
+                accessibilityLabel="Pizza"
+                style={styles.pizza}
+              />
+            </View>
+
+            <View style={styles.legend}>
+              {categories.map((category, index) => (
+                <View key={index} style={styles.legendItem}>
+                  <View
+                    style={[
+                      styles.legendDot,
+                      { backgroundColor: category.color },
+                    ]}
+                  />
+                  <Text style={styles.legendText}>{category.name}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.bottomSpacing} />
+      </ScrollView>
+
+      {/* Floating Action Button */}
+      <TouchableOpacity style={styles.fab}>
+        <Text style={styles.fabIcon}>+</Text>
+      </TouchableOpacity>
+
+      {/* Bottom Navigation */}
+      <View style={styles.bottomNav}>
+        <TouchableOpacity style={styles.navItem}>
+          <Feather name="home" size={24} color="#FFFFFF" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem}>
+          <Feather name="list" size={24} color="#FFFFFF" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem}>
+          <Feather name="clipboard" size={24} color="#FFFFFF" />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem}>
+          <Feather name="more-horizontal" size={24} color="#FFFFFF" />
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
