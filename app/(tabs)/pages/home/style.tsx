@@ -183,7 +183,7 @@ export const styles = StyleSheet.create({
     elevation: 3,
   },
 
-  pizza:{
+  pizza: {
     width: 150,
     height: 150,
   },
@@ -228,9 +228,10 @@ export const styles = StyleSheet.create({
     elevation: 8,
   },
   fabIcon: {
-    fontSize: 32,
+    fontSize: 40,
     color: "#1A2A42",
     fontWeight: "300",
+    top: -5,
   },
 
   // Bottom Navigation Styles

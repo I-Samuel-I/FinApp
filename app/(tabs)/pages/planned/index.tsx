@@ -22,7 +22,7 @@ export default function Planned() {
     },
     {
       id: 3,
-      icon: "utensils",
+      icon: "pie-chart",
       title: "Alimentação",
       remaining: "R$ 200,00",
       spent: "R$ 300,00 de R$ 500,00",
@@ -63,7 +63,7 @@ export default function Planned() {
         </View>
       </View>
 
-      <ScrollView style={{ padding: 20 }}>
+      <ScrollView style={styles.container}>
         <Text style={styles.title}>Planejamento Mensal</Text>
 
         {categories.map((item) => (
@@ -94,6 +94,11 @@ export default function Planned() {
         <View style={{ height: 100 }} />
       </ScrollView>
 
+      {/* Floating Action Button */}
+      <TouchableOpacity style={styles.fab}>
+        <Text style={styles.fabIcon}>+</Text>
+      </TouchableOpacity>
+
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem}>
           <Feather
@@ -106,11 +111,21 @@ export default function Planned() {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => {
+            router.push("/pages/transactions");
+          }}
+        >
           <Feather name="list" size={24} color="#FFFFFF" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => {
+            router.push("/pages/planned");
+          }}
+        >
           <Feather name="clipboard" size={24} color="#FFFFFF" />
         </TouchableOpacity>
 

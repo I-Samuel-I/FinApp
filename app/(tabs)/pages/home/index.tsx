@@ -9,6 +9,7 @@ import {
 import { styles } from "./style";
 import { Feather } from "@expo/vector-icons";
 import { router } from "expo-router";
+
 export default function HomeScreen() {
   const transactions = [
     {
@@ -143,6 +144,9 @@ export default function HomeScreen() {
         <View style={styles.bottomSpacing} />
       </ScrollView>
 
+      {/* Overlay behind FAB */}
+      <View style={styles.fabOverlay} pointerEvents="none" />
+
       {/* Floating Action Button */}
       <TouchableOpacity style={styles.fab}>
         <Text style={styles.fabIcon}>+</Text>
@@ -151,10 +155,22 @@ export default function HomeScreen() {
       {/* Bottom Navigation */}
       <View style={styles.bottomNav}>
         <TouchableOpacity style={styles.navItem}>
-          <Feather name="home" size={24} color="#FFFFFF" />
+          <Feather
+            name="home"
+            size={24}
+            color="#FFFFFF"
+            onPress={() => {
+              router.push("/pages/home");
+            }}
+          />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => {
+            router.push("/pages/transactions");
+          }}
+        >
           <Feather name="list" size={24} color="#FFFFFF" />
         </TouchableOpacity>
 

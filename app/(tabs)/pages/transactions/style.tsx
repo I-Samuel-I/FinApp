@@ -3,11 +3,11 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F5F5",
-    margin: 20,
+    paddingHorizontal: 20,
+    backgroundColor: "#FFFFFF",
   },
 
-  // Header Styles
+  // Header
   header: {
     backgroundColor: "#1A2A42",
     paddingTop: 50,
@@ -18,78 +18,83 @@ export const styles = StyleSheet.create({
   },
 
   greetingContainer: {
-    flex: 1,
-    marginLeft: 15,
     alignItems: "center",
     gap: 5,
   },
+
   greetingText: {
     fontSize: 14,
     color: "#B0B0B0",
   },
+
   userName: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#FFFFFF",
   },
 
-  // Infos
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginBottom: 15,
-    textAlign: "center",
-    color: "#1A2A42",
-  },
-
-  card: {
-    backgroundColor: "#FFF",
-    padding: 15,
-    borderRadius: 12,
-    marginBottom: 15,
-    elevation: 2,
-    borderColor: "#DDD",
-    borderWidth: 1,
-  },
-
-  cardHeader: {
+  // Search Box
+  searchBox: {
+    marginTop: 20,
     flexDirection: "row",
     alignItems: "center",
-    gap: 12,
-    marginBottom: 10,
+    backgroundColor: "#FFF",
+    borderRadius: 15,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    elevation: 2,
+    borderWidth: 1,
+    borderColor: "#DDD",
   },
 
-  cardTitle: {
+  searchInput: {
+    marginLeft: 10,
+    flex: 1,
+  },
+
+  // Date label
+  dateLabel: {
+    marginTop: 25,
     fontSize: 16,
+    fontWeight: "bold",
+    color: "#000",
+  },
+
+  // Transaction Row
+  transactionRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#EEE",
+  },
+
+  iconLabel: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+
+  transactionTitle: {
+    fontSize: 15,
+    color: "#000",
+  },
+
+  transactionValue: {
+    fontSize: 15,
     fontWeight: "bold",
   },
 
-  cardRemaining: {
-    fontSize: 12,
-    color: "#6a6a6a",
+  valueIn: {
+    color: "#3CB371",
   },
 
-  progressBarBackground: {
-    height: 10,
-    width: "100%",
-    backgroundColor: "#E6E6E6",
-    borderRadius: 10,
-    overflow: "hidden",
-    marginBottom: 5,
-    marginTop: 5,
+  valueOut: {
+    color: "#D9534F",
   },
 
-  progressBarFill: {
-    height: "100%",
-    backgroundColor: "#62CC7B",
-  },
-
-  spentText: {
-    fontSize: 12,
-    color: "#555",
-  },
-
-// FAB Styles
+  // FAB Styles
   fab: {
     position: "absolute",
     bottom: 50,
@@ -108,12 +113,11 @@ export const styles = StyleSheet.create({
     elevation: 8,
   },
   fabIcon: {
-    fontSize: 40,
+  fontSize: 40,
     color: "#1A2A42",
     fontWeight: "300",
     top: -5,
   },
-
   // Bottom Navigation Styles
   bottomNav: {
     flexDirection: "row",
