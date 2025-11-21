@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { styles } from "./style";
 import { Feather } from "@expo/vector-icons";
+import { router } from "expo-router";
 export default function HomeScreen() {
   const transactions = [
     {
@@ -157,7 +158,12 @@ export default function HomeScreen() {
           <Feather name="list" size={24} color="#FFFFFF" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => {
+            router.push("/pages/planned");
+          }}
+        >
           <Feather name="clipboard" size={24} color="#FFFFFF" />
         </TouchableOpacity>
 
