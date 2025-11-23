@@ -123,7 +123,12 @@ export default function Transactions() {
           <Feather name="clipboard" size={24} color="#FFFFFF" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => {
+            router.push("/pages/moreoptions");
+          }}
+        >
           <Feather name="more-horizontal" size={24} color="#FFFFFF" />
         </TouchableOpacity>
       </View>

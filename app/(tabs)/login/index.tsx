@@ -1,11 +1,43 @@
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import style from "./style";
-import { useState } from "react";
+import { use, useState } from "react";
 import { useRouter } from "expo-router";
 
 export default function LoginScreen() {
   const [login, loginSet] = useState(true);
   const router = useRouter();
+  const [nome, setNome] = useState("");
+  const [senha, setSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [erro, setErro] = useState("");
+
+
+  const enviarLogin = () => {
+    if (nome.trim() && senha.trim()) {
+      alert("Formulário enviado!");
+      router.push("/pages/home");
+
+    }
+    else {
+      alert("Erro, preencha as informações!");
+    }
+
+
+
+
+  }
+  const enviarRegister = () => {
+    if (nome.trim() && senha.trim() && confirmarSenha.trim()) {
+      alert("Formulário enviado!");
+      router.push("/pages/home");
+
+    }
+    else {
+      alert("Erro, preencha as informações!");
+    }
+
+  }
+
 
   const toogleLogin = () => {
     loginSet(!login);
@@ -30,10 +62,12 @@ export default function LoginScreen() {
 
             <View style={style.inputCointaner}>
               <View style={style.inputField}>
-                <TextInput placeholder="E-mail" style={style.input} />
+                <TextInput value={nome} onChangeText={setNome} placeholder="E-mail" style={style.input} />
               </View>
               <View style={style.inputField}>
                 <TextInput
+                  value={senha}
+                  onChangeText={setSenha}
                   placeholder="Senha"
                   secureTextEntry={true}
                   style={style.input}
@@ -41,6 +75,8 @@ export default function LoginScreen() {
               </View>
               <View style={style.inputField}>
                 <TextInput
+                  value={confirmarSenha}
+                  onChangeText={setConfirmarSenha}
                   placeholder="Confirme sua senha"
                   secureTextEntry={true}
                   style={style.input}
@@ -51,7 +87,8 @@ export default function LoginScreen() {
             <TouchableOpacity
               style={style.buttonLogin}
               onPress={() => {
-                router.push("/pages/home");
+                enviarRegister();
+
               }}
             >
               <Text style={style.buttonText}>Cadastrar</Text>
@@ -97,10 +134,12 @@ export default function LoginScreen() {
 
           <View style={style.inputCointaner}>
             <View style={style.inputField}>
-              <TextInput placeholder="E-mail" style={style.input} />
+              <TextInput value={nome} onChangeText={setNome} placeholder="E-mail" style={style.input} />
             </View>
             <View style={style.inputField}>
               <TextInput
+                value={senha}
+                onChangeText={setSenha}
                 placeholder="Senha"
                 secureTextEntry={true}
                 style={style.input}
@@ -111,7 +150,8 @@ export default function LoginScreen() {
           <TouchableOpacity
             style={style.buttonLogin}
             onPress={() => {
-              router.push("/pages/home");
+              enviarLogin();
+
             }}
           >
             <Text style={style.buttonText}>Entrar</Text>
@@ -119,7 +159,7 @@ export default function LoginScreen() {
 
           <View style={style.forgotContainer}>
             <Text style={style.forgotText}>Esqueceu sua senha?</Text>
-            <TouchableOpacity  onPress={() => {
+            <TouchableOpacity onPress={() => {
               router.push("/pages/forgotPassword");
             }}>
               <Text style={style.clickHereText}>Clique aqui</Text>
