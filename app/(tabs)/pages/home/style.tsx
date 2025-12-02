@@ -213,7 +213,7 @@ export const styles = StyleSheet.create({
   fab: {
     position: "absolute",
     bottom: 50,
-    zIndex: 10,
+    zIndex: 20,
     alignSelf: "center",
     width: 60,
     height: 60,

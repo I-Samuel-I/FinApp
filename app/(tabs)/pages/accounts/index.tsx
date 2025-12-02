@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Modal } from "react-native";
 import {
   Ionicons,
   MaterialIcons,
@@ -7,23 +7,40 @@ import {
 } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { styles } from "./style";
+import { useState } from "react";
 
-
-const AccountListItem = ({ iconName, iconType, title, subtitle, balance, iconColor }) => (
+const AccountListItem = ({
+  iconName,
+  iconType,
+  title,
+  subtitle,
+  balance,
+  iconColor,
+}) => (
   <View style={styles.listItem}>
     <View style={styles.listItemIconContainer}>
-      {iconType === 'MaterialIcons' && (
+      {iconType === "MaterialIcons" && (
         <MaterialIcons name={iconName} size={24} color={iconColor} />
       )}
-      {iconType === 'FontAwesome5' && (
+      {iconType === "FontAwesome5" && (
         <FontAwesome5 name={iconName} size={24} color={iconColor} />
       )}
-      {iconType === 'Ionicons' && (
+      {iconType === "Ionicons" && (
         <Ionicons name={iconName} size={24} color={iconColor} />
       )}
 
-      {iconType === 'Text' && (
-        <Text style={[styles.listIconText, { color: iconColor, backgroundColor: iconName === 'Itaú' ? '#FF6200' : '#E60014' }]}>{iconName}</Text>
+      {iconType === "Text" && (
+        <Text
+          style={[
+            styles.listIconText,
+            {
+              color: iconColor,
+              backgroundColor: iconName === "Itaú" ? "#FF6200" : "#E60014",
+            },
+          ]}
+        >
+          {iconName}
+        </Text>
       )}
     </View>
 
@@ -38,24 +55,157 @@ const AccountListItem = ({ iconName, iconType, title, subtitle, balance, iconCol
         <Feather name="more-vertical" size={20} color="#999" />
       </TouchableOpacity>
     </View>
-    
   </View>
 );
 
 export default function AccountsScreen() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [options, setOptions] = useState(false);
+
+  const toogleOptions = () => {
+    setOptions(!options);
+    setModalVisible(!modalVisible);
+  };
   return (
     <>
+      {options && (
+        <Modal visible={modalVisible} transparent animationType="fade">
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: "rgba(0, 0, 0, 0.623)",
+              zIndex: 1,
+            }}
+          >
+            <View
+              style={{
+                position: "absolute",
+                bottom: 100,
+                left: "15%",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: "white",
+                  width: 60,
+                  height: 60,
+                  borderRadius: 50,
+                  padding: 20,
+                }}
+              >
+                <Feather name="trending-up" size={20} color="black" />
+              </View>
+              <Text style={{ color: "white" }}>Receita</Text>
+            </View>
+            <View
+              style={{
+                position: "absolute",
+                bottom: 100,
+                right: "15%",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: "white",
+                  width: 60,
+                  height: 60,
+                  borderRadius: 50,
+                  padding: 20,
+                }}
+              >
+                <Feather name="trending-down" size={20} color="black" />
+              </View>
+              <Text style={{ color: "white" }}>Despesa</Text>
+            </View>
+
+            <View
+              style={{
+                position: "absolute",
+                bottom: 190,
+                right: "55%",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: "white",
+                  width: 60,
+                  height: 60,
+                  borderRadius: 50,
+                  padding: 20,
+                }}
+              >
+                <Feather name="repeat" size={20} color="black" />
+              </View>
+              <Text style={{ color: "white" }}>Transferência</Text>
+            </View>
+
+            <View
+              style={{
+                position: "absolute",
+                bottom: 190,
+                left: "55%",
+                alignItems: "center",
+              }}
+            >
+              <View
+                style={{
+                  backgroundColor: "white",
+                  width: 60,
+                  height: 60,
+                  borderRadius: 50,
+                  padding: 20,
+                }}
+              >
+                <Feather name="credit-card" size={20} color="black" />
+              </View>
+              <Text style={{ color: "white" }}>Despesa Cartão</Text>
+            </View>
+
+            <TouchableOpacity
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "white",
+                width: 60,
+                height: 60,
+                borderRadius: 50,
+                padding: 20,
+                position: "absolute",
+                bottom: 50,
+                left: "50%",
+                marginLeft: -30,
+              }}
+              onPress={toogleOptions}
+            >
+              <Feather name="x" size={35} color="#000" />
+            </TouchableOpacity>
+          </View>
+        </Modal>
+      )}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={{ position: "absolute", left: 20, top: 35 }}>
-           <Feather name="chevron-left" size={25} color="#FFFFFF" />
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={{ position: "absolute", left: 20, top: 35 }}
+        >
+          <Feather name="chevron-left" size={25} color="#FFFFFF" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.headerButton}>
           <Text style={styles.headerButtonText}>Contas</Text>
         </TouchableOpacity>
-        <View style={{ marginTop: 15, flexDirection: "row", alignItems: "center", gap: 20 }}>
-           <Feather name="chevron-left" size={20} color="#FFFFFF" />
+        <View
+          style={{
+            marginTop: 15,
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 20,
+          }}
+        >
+          <Feather name="chevron-left" size={20} color="#FFFFFF" />
           <Text style={styles.headerMonthText}>Maio</Text>
-           <Feather name="chevron-right" size={20} color="#FFFFFF" />
+          <Feather name="chevron-right" size={20} color="#FFFFFF" />
         </View>
 
         <TouchableOpacity style={styles.settingsIcon}>
@@ -80,7 +230,7 @@ export default function AccountsScreen() {
 
           {/* Lista de Contas */}
           <AccountListItem
-            iconName="Itaú" 
+            iconName="Itaú"
             iconType="Text"
             title="Itaú"
             subtitle="Saldo atual"
@@ -103,11 +253,8 @@ export default function AccountsScreen() {
             balance="R$ 400,00"
             iconColor="#FFF"
           />
-         
-          
         </View>
-        
- 
+
         <View style={styles.registerButtonContainer}>
           <TouchableOpacity style={styles.registerButton}>
             <Text style={styles.registerButtonText}>Cadastrar conta</Text>
@@ -115,28 +262,38 @@ export default function AccountsScreen() {
         </View>
       </View>
 
-   
-      <TouchableOpacity style={styles.fab}>
+      <TouchableOpacity style={styles.fab} onPress={toogleOptions}>
         <Text style={styles.fabIcon}>+</Text>
       </TouchableOpacity>
 
-
       <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem} onPress={() => router.push("/pages/home")}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => router.push("/pages/home")}
+        >
           <Feather name="home" size={24} color="#FFFFFF" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem} onPress={() => router.push("/pages/transactions")}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => router.push("/pages/transactions")}
+        >
           <Feather name="list" size={24} color="#FFFFFF" />
         </TouchableOpacity>
 
         <View style={styles.navItemEmpty} />
 
-        <TouchableOpacity style={styles.navItem} onPress={() => router.push("/pages/planned")}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => router.push("/pages/planned")}
+        >
           <Feather name="clipboard" size={24} color="#FFFFFF" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.navItem} onPress={() => router.push("/pages/moreoptions")}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => router.push("/pages/moreoptions")}
+        >
           <Feather name="more-horizontal" size={24} color="#FFFFFF" />
         </TouchableOpacity>
       </View>

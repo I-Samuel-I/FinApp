@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 
 export default function ForgotPasswordScreen() {
   const router = useRouter();
-
+  
   return (
     <View style={forgotPasswordStyle.main}>
       <View style={forgotPasswordStyle.headerTitle}>
